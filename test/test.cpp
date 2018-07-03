@@ -2,6 +2,7 @@
 
 int main()
 {
-	Test::test_messenger.pass_message(12);
+	Test::TestMessenger test_messenger;
+	test_messenger.pass_message(12);
 	return 0;
 }

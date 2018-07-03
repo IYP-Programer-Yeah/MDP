@@ -6,9 +6,5 @@
 
 namespace Test
 {
-	Messenger::messenger<Test::module_a, Test::module_b> test_messenger;
-	template <typename MT> void pass_message(const MT &message)
-	{
-		test_messenger.pass_message(message);
-	}
+	typedef Messenger::Messenger<Test::ModuleA, Test::ModuleB> TestMessenger;
 }

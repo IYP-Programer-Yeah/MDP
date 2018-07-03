@@ -7,11 +7,11 @@
 
 namespace Test
 {
-	class module_b
+	class ModuleB
 	{
 	public:
 
-		std::tuple<> process_message(const std::string& message)
+		MESSAGE_PROCESSOR(const std::string& message)
 		{
 			std::cout << message << std::endl;
 			return std::tuple<>();

@@ -129,7 +129,6 @@
     <None Include="..\..\..\test\test-messenger.inl" />
     <None Include="..\..\..\test\test-module-a.inl" />
     <None Include="..\..\..\test\test-module-b.inl" />
-    <None Include="..\..\..\test\test-module.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

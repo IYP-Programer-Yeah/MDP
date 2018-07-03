@@ -1,18 +1,17 @@
 #pragma once
 
 #include "messenger-module.inl"
-#include "test-module.inl"
 #include <string>
 
 namespace Test
 {
-	class module_a
+	class ModuleA
 	{
 	public:
 
-		std::tuple<> process_message(const int& message)
+		MESSAGE_PROCESSOR(messenger, const int& message)
 		{
-			pass_message(std::to_string(message));
+			messenger.pass_message(std::to_string(message));
 			return std::tuple<>();
 		}
 

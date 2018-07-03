@@ -23,9 +23,6 @@
     <None Include="..\..\..\test\test-messenger.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="..\..\..\test\test-module.inl">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="..\..\..\test\test-module-a.inl">
       <Filter>Source Files</Filter>
     </None>
