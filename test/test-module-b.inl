@@ -10,13 +10,24 @@ namespace Test
 	class ModuleB
 	{
 	public:
-
-		MESSAGE_PROCESSOR(const std::string& message)
+		struct ModuleBReport
 		{
-			std::cout << message << std::endl;
+			std::string report;
+		};
+
+		MESSAGE_PROCESSOR(const ModuleBReport& message)
+		{
+			std::cout << "Module B: " << message.report << std::endl;
 			return std::tuple<>();
 		}
 
-		PROCESS_KNOWN_MESSAGES_ONLY
+		MESSAGE_PROCESSOR(messenger, const std::string& message)
+		{
+			ModuleBReport report;
+			report.report = "Recieved a std::string message.";
+			messenger.pass_message(report);
+			std::cout << message << std::endl;
+			return std::tuple<>();
+		}
 	};
 }

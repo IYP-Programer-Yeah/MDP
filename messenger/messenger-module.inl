@@ -2,11 +2,6 @@
 
 #include <tuple>
 
-//Note: Add to the end of the module class to process known messages only, other wise you need to define a message processor for each message type.
-#ifndef PROCESS_KNOWN_MESSAGES_ONLY
-#	define PROCESS_KNOWN_MESSAGES_ONLY public: template<typename MET, typename MT> std::tuple<> process_message(const MET &messenger, const MT& message) {return std::tuple<>();}
-#endif
-
 //Overloads message processor based on the number of arguments
 //MESSAGE_PROCESSOR(Message declartion)
 //MESSAGE_PROCESSOR(Messenger name, Message declartion)

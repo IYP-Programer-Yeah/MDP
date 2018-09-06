@@ -2,19 +2,29 @@
 
 #include "messenger-module.inl"
 #include <string>
+#include <iostream>
 
 namespace Test
 {
 	class ModuleA
 	{
 	public:
-
-		MESSAGE_PROCESSOR(messenger, const int& message)
+		struct ModuleAReport
 		{
-			messenger.pass_message(std::to_string(message));
-			return std::tuple<>();
+			std::string report;
+		};
+
+		MESSAGE_PROCESSOR(const int& message)
+		{
+			ModuleAReport report;
+			report.report = "Processed an int message.";
+			return std::make_tuple(report, std::to_string(message));
 		}
 
-		PROCESS_KNOWN_MESSAGES_ONLY
+		MESSAGE_PROCESSOR(const ModuleAReport& message)
+		{
+			std::cout << "Module A: " << message.report << std::endl;
+			return std::tuple<>();
+		}
 	};
 }
