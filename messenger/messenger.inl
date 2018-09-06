@@ -58,7 +58,7 @@ namespace Messenger
 			//The result of processing each message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
 			template <typename MET, typename MT, typename TT> static void pass_message(const MET &messenger, const MT& message, TT& modules_tuple)
 			{
-				pass_tuple_message(messenger, ConditionalPassMessage<HasMessageProcessor<std::tuple_element<M - N, TT>::type, MET, MT>::value>::pass_message((std::get<M - N>(modules_tuple)), messenger, message), modules_tuple);
+				pass_tuple_message(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M - N, TT>::type, MET, MT>::value>::pass_message((std::get<M - N>(modules_tuple)), messenger, message), modules_tuple);
 				MessagePasser<N - 1, M>::pass_message(messenger, message, modules_tuple);
 			}
 		};
