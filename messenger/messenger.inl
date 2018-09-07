@@ -8,9 +8,9 @@ namespace Messenger
 	namespace Privates
 	{
 		//Passes a single message to a tuple of modules.
-		template <std::size_t N, std::size_t M> struct MessagePasser;
+		template <std::size_t N, std::size_t M = 0> struct MessagePasser;
 		//Passes a tuple of messages to a tuple of modules.
-		template <std::size_t N, std::size_t M> struct TupleMessagePasser;
+		template <std::size_t N, std::size_t M = 0> struct TupleMessagePasser;
 		//Passes a tuple of messages to a tuple of modules.
 		template <typename MET, typename MTT, typename TT> void pass_tuple_message(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple);
 
@@ -52,7 +52,7 @@ namespace Messenger
 			template <typename MET, typename MT, typename TT> static void pass_message(const MET &messenger, const MT& message, TT& modules_tuple) {}
 		};
 
-		template <std::size_t N, std::size_t M = 0> struct MessagePasser
+		template <std::size_t N, std::size_t M> struct MessagePasser
 		{
 			//Pass a single message to a tuple of modules, the order of modules in the tuple, defines the order of the messages being passed.
 			//The result of processing each message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
@@ -70,7 +70,7 @@ namespace Messenger
 			template <typename MET, typename MTT, typename TT> static void pass_message(const MET &messenger, const MTT& messages_tuple, TT& modules_tuple) {}
 		};
 
-		template <std::size_t N, std::size_t M = 0> struct TupleMessagePasser
+		template <std::size_t N, std::size_t M> struct TupleMessagePasser
 		{
 			//Pass a tuple of messages to a tuple of modules. First the first message on the tuple is passed to all of the modules then the rest of the messages are passed in the same manner.
 			template <typename MET, typename MTT, typename TT> static void pass_message(const MET &messenger, const MTT& messages_tuple, TT& modules_tuple)
