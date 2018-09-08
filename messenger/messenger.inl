@@ -37,7 +37,10 @@ namespace Messenger
 		{
 			template <typename, typename> struct checker;
 
-			template <typename C> static std::true_type test_processor_method(checker<C, decltype(std::declval<C>().process_message(std::declval<MET>(), std::declval<MT>()))>*);
+			template <typename... T> static std::true_type test_processor_return_type(std::tuple<T...> arg);
+			static std::false_type test_processor_return_type(...);
+
+			template <typename C> static auto test_processor_method(checker<C, decltype(std::declval<C>().process_message(std::declval<MET>(), std::declval<MT>()))>*) -> decltype(test_processor_return_type(std::declval<C>().process_message(std::declval<MET>(), std::declval<MT>())));
 			template <typename C> static std::false_type test_processor_method(...);
 
 		public:
