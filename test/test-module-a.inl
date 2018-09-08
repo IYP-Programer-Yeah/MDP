@@ -20,6 +20,8 @@ namespace Test
 		};
 	public:
 
+		int last_recieved_message;
+
 		// This is a message processor that will process every message that is of type int.
 		// This is one of the three macros that can be used to declare a message processor.
 		// Here the return type is set to auto which is availble on C++14 and above.
@@ -28,6 +30,7 @@ namespace Test
 		// and the name of the variable that the message is passed as.
 		MESSAGE_PROCESSOR(const int& message)
 		{
+			last_recieved_message = message;
 			Report report;
 			report.report = "Processed an int message.";
 			// The returned tuple holds a set of messages that will be passed to modules all over again.
