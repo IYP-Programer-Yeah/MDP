@@ -18,7 +18,7 @@ namespace Test
 
 		// This is a message processor that takes a messenger and a message, since messenger
 		// type is not availbe here, a template parameter is used for messenger type.
-		template <typename T> auto message_processor(const T& messenger, const std::string& message)
+		template <typename T> auto process_message(const T& messenger, const std::string& message)
 		{
 			Report report;
 			report.report = "Recieved a std::string message.";
@@ -29,11 +29,8 @@ namespace Test
 			return std::tuple<>();
 		}
 
-		// This type of message processor declration allows definition of return type, as well as access to messenger.
-		// The first parameter of the macro is the return type, the second is the name of the variable that the messenger
-		// is passed as, and the third parameter defines the input argument of the module(the message), and the name of 
-		// the variable that the message is passed as.
-		MESSAGE_PROCESSOR(std::tuple<>, messenger, const Report& message)
+		// A message processor for messages of type ModuleB::Report.
+		template <typename T> auto process_message(const T& messenger, const Report& message)
 		{
 			std::cout << "Module B: " << message.report << std::endl;
 			// There are no messages to be passed after returning.

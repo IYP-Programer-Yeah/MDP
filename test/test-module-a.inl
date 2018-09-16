@@ -20,11 +20,11 @@ namespace Test
 		int last_recieved_message;
 
 		// This is a message processor that will process every message that is of type int.
-		// A message processor is any function named "message_processor" that can take either
+		// A message processor is any function named "process_message" that can take either
 		// a single parameter of const lvalue reference of message type, or a const lvalue 
 		// reference of a messanger as the first parameter and a const lvalue referemce of
 		// message type as the second parameter and returns a tuple of messages.
-		auto message_processor(const int& message)
+		auto process_message(const int& message)
 		{
 			last_recieved_message = message;
 			Report report;
@@ -38,7 +38,7 @@ namespace Test
 
 		// This is a message processor that will process every message that is of type
 		//ModuleA::Report.
-		auto message_processor(const Report& message) -> std::tuple<>
+		auto process_message(const Report& message) -> std::tuple<>
 		{
 			std::cout << "Module A: " << message.report << std::endl;
 			// There are no messages to be passed to modules after returning.
