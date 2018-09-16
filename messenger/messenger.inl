@@ -18,29 +18,29 @@ namespace Messenger
 
 		template<> struct ConditionalPassMessage<true>
 		{
-			template <typename MOT, typename MT, typename MET> static auto pass_message(MOT& module, const MET &messenger, const MT& message) -> decltype(module.process_message(messenger, message))
+			template <typename MOT, typename... MPAT> static auto pass_message(MOT& module, const MPAT & ... args) -> decltype(module.process_message(args...))
 			{
-				return module.process_message(messenger, message);
+				return module.process_message(args...);
 			}
 		};
 
 		template<> struct ConditionalPassMessage<false>
 		{
-			template <typename MOT, typename MT, typename MET> static std::tuple<> pass_message(MOT& module, const MET &messenger, const MT& message)
+			template <typename MOT, typename... MPAT> static std::tuple<> pass_message(MOT& module, const MPAT & ... args)
 			{
 				return std::tuple<>();
 			}
 		};
 
 
-		template <typename MOT, typename MET, typename MT> class HasMessageProcessor
+		template <typename MOT, typename... MPAT> class HasMessageProcessor
 		{
-			template <typename, typename> struct checker;
+			template <typename, typename> struct Checker;
 
 			template <typename... T> static std::true_type test_processor_return_type(std::tuple<T...> arg);
 			static std::false_type test_processor_return_type(...);
 
-			template <typename C> static auto test_processor_method(checker<C, decltype(std::declval<C>().process_message(std::declval<MET>(), std::declval<MT>()))>*) -> decltype(test_processor_return_type(std::declval<C>().process_message(std::declval<MET>(), std::declval<MT>())));
+			template <typename C> static auto test_processor_method(Checker<C, decltype(std::declval<C>().process_message(std::declval<MPAT>()...))>*) -> decltype(test_processor_return_type(std::declval<C>().process_message(std::declval<MPAT>()...)));
 			template <typename C> static std::false_type test_processor_method(...);
 
 		public:
@@ -61,6 +61,7 @@ namespace Messenger
 			//The result of processing each message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
 			template <typename MET, typename MT, typename TT> static void pass_message(const MET &messenger, const MT& message, TT& modules_tuple)
 			{
+				pass_tuple_message(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MT>::value>::pass_message((std::get<M>(modules_tuple)), message), modules_tuple);
 				pass_tuple_message(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MET, MT>::value>::pass_message((std::get<M>(modules_tuple)), messenger, message), modules_tuple);
 				MessagePasser<N, M + 1>::pass_message(messenger, message, modules_tuple);
 			}

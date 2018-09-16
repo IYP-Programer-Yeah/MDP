@@ -1,8 +1,5 @@
 #pragma once
 
-// Definition of MESSAGE_PROCESSOR macro
-#include "messenger-module.inl"
-
 // Used STL libraries
 #include <string>
 #include <iostream>
@@ -23,12 +20,11 @@ namespace Test
 		int last_recieved_message;
 
 		// This is a message processor that will process every message that is of type int.
-		// This is one of the three macros that can be used to declare a message processor.
-		// Here the return type is set to auto which is availble on C++14 and above.
-		// The message to be processed should always be a const Lvalue reference.
-		// "const int& message" defines the input argument of the module (the message),
-		// and the name of the variable that the message is passed as.
-		MESSAGE_PROCESSOR(const int& message)
+		// A message processor is any function named "message_processor" that can take either
+		// a single parameter of const lvalue reference of message type, or a const lvalue 
+		// reference of a messanger as the first parameter and a const lvalue referemce of
+		// message type as the second parameter and returns a tuple of messages.
+		auto message_processor(const int& message)
 		{
 			last_recieved_message = message;
 			Report report;
@@ -40,11 +36,9 @@ namespace Test
 			return std::make_tuple(report, std::to_string(message));
 		}
 
-		// This is a message processor that will process every message that is of type ModuleA::Report.
-		// "const ModuleA::Report& message" defines the input argument of the module(the message),
-		// and the name of the variable that the message is passed as.
-		// The " -> std::tuple<>" declares the return type of the message processor, and is supported on C++11 and above.
-		MESSAGE_PROCESSOR(const Report& message) -> std::tuple<>
+		// This is a message processor that will process every message that is of type
+		//ModuleA::Report.
+		auto message_processor(const Report& message) -> std::tuple<>
 		{
 			std::cout << "Module A: " << message.report << std::endl;
 			// There are no messages to be passed to modules after returning.

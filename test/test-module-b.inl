@@ -4,9 +4,6 @@
 #include <string>
 #include <iostream>
 
-// Definition of MESSAGE_PROCESSOR macro
-#include "messenger-module.inl"
-
 namespace Test
 {
 	// Defintion of Module B
@@ -19,13 +16,9 @@ namespace Test
 		};
 	public:
 
-		// This is a message processor that will process every std::string message, this type of message processor
-		// declration allows the access to messenger. The messeger is passed as a const Lvalue refrence, the first parameter
-		// of the macro specifies the name of the variable the messenger will be passed as. The second parameter of the macro
-		// "const std::string& message" defines the input argument of the module(the message), and the name of the variable
-		// that the message is passed as.
-		// The return type of the message processor is auto and is supported on C++14 and above.
-		MESSAGE_PROCESSOR(messenger, const std::string& message)
+		// This is a message processor that takes a messenger and a message, since messenger
+		// type is not availbe here, a template parameter is used for messenger type.
+		template <typename T> auto message_processor(const T& messenger, const std::string& message)
 		{
 			Report report;
 			report.report = "Recieved a std::string message.";
