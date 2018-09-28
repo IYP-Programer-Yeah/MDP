@@ -7,12 +7,29 @@ namespace Messenger
 {
 	namespace Privates
 	{
-		//Passes a single message to a tuple of modules.
-		template <std::size_t N, std::size_t M = 0> struct MessagePasser;
+		//Itterates on FTs and calls the static execute function on each template instantiation of FT.
+		template <template <std::size_t> class FT, std::size_t N, std::size_t M = 0> struct ForEach;
+
+		template <template <std::size_t> class FT, std::size_t M> struct ForEach <FT, M, M>
+		{
+			template <typename... AT> static void execute(AT&& ... args) {}
+		};
+
+		template <template <std::size_t> class FT, std::size_t N, std::size_t M> struct ForEach
+		{
+			template <typename... AT> static void execute(AT&& ... args)
+			{
+				FT<M>::execute(std::forward<AT>(args)...);
+				ForEach<FT, N, M + 1>::execute(std::forward<AT>(args)...);
+			}
+		};
+
+		//Passes a single message to a module.
+		template <std::size_t M> struct pass_message;
+		//Passes a tuple of messages to a module.
+		template <std::size_t M> struct pass_message_tuple;
 		//Passes a tuple of messages to a tuple of modules.
-		template <std::size_t N, std::size_t M = 0> struct TupleMessagePasser;
-		//Passes a tuple of messages to a tuple of modules.
-		template <typename MET, typename MTT, typename TT> void pass_tuple_message(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple);
+		template <typename MET, typename MTT, typename TT> void pass_tuple_message_tuple(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple);
 
 		template <bool DoPass> struct ConditionalPassMessage;
 
@@ -48,47 +65,31 @@ namespace Messenger
 			static constexpr bool value = std::is_same<std::true_type, decltype(test_processor_method<MOT>(nullptr))>::value;
 		};
 
-
-
-		template <std::size_t M> struct MessagePasser <M, M>
+		//Pass a single message to a tuple of modules, the order of modules in the tuple, defines the order of the messages being passed.
+		//The result of processing each message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
+		template <std::size_t M> struct pass_message
 		{
-			template <typename MET, typename MT, typename TT> static void pass_message(const MET &messenger, const MT& message, TT& modules_tuple) {}
-		};
-
-		template <std::size_t N, std::size_t M> struct MessagePasser
-		{
-			//Pass a single message to a tuple of modules, the order of modules in the tuple, defines the order of the messages being passed.
-			//The result of processing each message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
-			template <typename MET, typename MT, typename TT> static void pass_message(const MET &messenger, const MT& message, TT& modules_tuple)
+			template <typename MET, typename MT, typename TT> static void execute(const MET &messenger, const MT& message, TT& modules_tuple)
 			{
-				pass_tuple_message(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MT>::value>::pass_message((std::get<M>(modules_tuple)), message), modules_tuple);
-				pass_tuple_message(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MET, MT>::value>::pass_message((std::get<M>(modules_tuple)), messenger, message), modules_tuple);
-				MessagePasser<N, M + 1>::pass_message(messenger, message, modules_tuple);
+				pass_tuple_message_tuple(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MT>::value>::pass_message((std::get<M>(modules_tuple)), message), modules_tuple);
+				pass_tuple_message_tuple(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MET, MT>::value>::pass_message((std::get<M>(modules_tuple)), messenger, message), modules_tuple);
 			}
 		};
 
-
-
-		template <std::size_t M> struct TupleMessagePasser <M, M>
+		//Pass a tuple of messages to a tuple of modules. First the first message on the tuple is passed to all of the modules then the rest of the messages are passed in the same manner.
+		template <std::size_t M> struct pass_message_tuple
 		{
-			template <typename MET, typename MTT, typename TT> static void pass_message(const MET &messenger, const MTT& messages_tuple, TT& modules_tuple) {}
-		};
-
-		template <std::size_t N, std::size_t M> struct TupleMessagePasser
-		{
-			//Pass a tuple of messages to a tuple of modules. First the first message on the tuple is passed to all of the modules then the rest of the messages are passed in the same manner.
-			template <typename MET, typename MTT, typename TT> static void pass_message(const MET &messenger, const MTT& messages_tuple, TT& modules_tuple)
+			template <typename MET, typename MTT, typename TT> static void execute(const MET &messenger, const MTT& messages_tuple, TT& modules_tuple)
 			{
-				MessagePasser<std::tuple_size<TT>::value>::pass_message(messenger, std::get<M>(messages_tuple), modules_tuple);
-				TupleMessagePasser<N, M + 1>::pass_message(messenger, messages_tuple, modules_tuple);
+				ForEach<pass_message, std::tuple_size<TT>::value>::execute(messenger, std::get<M>(messages_tuple), modules_tuple);
 			}
-		};
 
+		};
 
 		//The helper function that passes a tuple of messages to a tuple of modules.
-		template <typename MET, typename MTT, typename TT> void pass_tuple_message(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple)
+		template <typename MET, typename MTT, typename TT> void pass_tuple_message_tuple(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple)
 		{
-			TupleMessagePasser<std::tuple_size<MTT>::value>::pass_message(messenger, messages_tuple, modules_tuple);
+			ForEach<pass_message_tuple, std::tuple_size<MTT>::value>::execute(messenger, messages_tuple, modules_tuple);
 		}
 	}
 
@@ -105,7 +106,7 @@ namespace Messenger
 		//pass a message to internal modules
 		template <typename MT> void pass_message(const MT& message) const
 		{
-			Privates::MessagePasser<sizeof... (Ts)>::pass_message(*this, message, modules);
+			Privates::ForEach<Privates::pass_message, sizeof... (Ts)>::execute(*this, message, modules);
 		}
 
 		//get a certain module
