@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-namespace Test
+namespace Example
 {
 	// Defintion of Module B
 	class ModuleB

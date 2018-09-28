@@ -15,25 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\test\test.cpp">
+    <None Include="..\..\Messenger\Include\messenger.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\Example\Source\example-messenger.inl">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </None>
+    <None Include="..\..\Example\Source\example-module-a.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\Example\Source\example-module-b.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\test\test-messenger.inl">
+    <ClCompile Include="..\..\Example\Source\example.cpp">
       <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\..\test\test-module-a.inl">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\..\test\test-module-b.inl">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\..\messenger\messenger.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="..\..\..\messenger\messenger-module.inl">
-      <Filter>Header Files</Filter>
-    </None>
+    </ClCompile>
   </ItemGroup>
 </Project>
