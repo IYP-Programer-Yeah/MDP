@@ -14,23 +14,4 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Messenger\Include\messenger.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="..\..\Example\Source\example-messenger.inl">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\Example\Source\example-module-a.inl">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\Example\Source\example-module-b.inl">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Example\Source\example.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
 </Project>
