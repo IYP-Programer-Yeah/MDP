@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
@@ -6,33 +5,65 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example", "Example\Example.vcxproj", "{5156B327-EF4D-4707-A335-DA3F0FD932BD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{8BF59893-98EF-420D-8FE0-1140BEA8AC36}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GoogleTest", "GoogleTest", "{FB90206D-520D-4C77-8C38-A4F755BBD1A4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "GoogleTest\gtest.vcxproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Debug|Win32.Build.0 = Debug|Win32
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Debug|x64.ActiveCfg = Debug|x64
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Debug|x64.Build.0 = Debug|x64
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Debug|x86.ActiveCfg = Debug|Win32
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Debug|x86.Build.0 = Debug|Win32
+		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Release|Win32.ActiveCfg = Release|Win32
+		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Release|Win32.Build.0 = Release|Win32
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Release|x64.ActiveCfg = Release|x64
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Release|x64.Build.0 = Release|x64
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Release|x86.ActiveCfg = Release|Win32
 		{5156B327-EF4D-4707-A335-DA3F0FD932BD}.Release|x86.Build.0 = Release|Win32
+		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Debug|Win32.Build.0 = Debug|Win32
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Debug|x64.ActiveCfg = Debug|x64
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Debug|x64.Build.0 = Debug|x64
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Debug|x86.ActiveCfg = Debug|Win32
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Debug|x86.Build.0 = Debug|Win32
+		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Release|Win32.ActiveCfg = Release|Win32
+		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Release|Win32.Build.0 = Release|Win32
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Release|x64.ActiveCfg = Release|x64
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Release|x64.Build.0 = Release|x64
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Release|x86.ActiveCfg = Release|Win32
 		{8BF59893-98EF-420D-8FE0-1140BEA8AC36}.Release|x86.Build.0 = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.Build.0 = Debug|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x64.ActiveCfg = Debug|x64
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x64.Build.0 = Debug|x64
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x86.ActiveCfg = Debug|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x86.Build.0 = Debug|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.Build.0 = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|x64.ActiveCfg = Release|x64
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|x64.Build.0 = Release|x64
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|x86.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {FB90206D-520D-4C77-8C38-A4F755BBD1A4}
 	EndGlobalSection
 EndGlobal
