@@ -15,18 +15,18 @@ using MessengerType = Messenger::Messenger<HasProperMessageProcessor>;
 
 TEST(HasMessageProcessorTest, HasProperMessageProcessorWithoutMessengerTest)
 {
-	constexpr bool Result = Messenger::Privates::HasMessageProcessor<HasProperMessageProcessor, MessageType<0>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<0>>::value;
 	EXPECT_EQ(Result, true);
 }
 
 TEST(HasMessageProcessorTest, HasProperMessageProcessorWithMessengerTest)
 {
-	constexpr bool Result = Messenger::Privates::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<1>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<1>>::value;
 	EXPECT_EQ(Result, true);
 }
 
 TEST(HasMessageProcessorTest, HasProperMessageProcessorWithAndWithoutMessengerTest)
 {
-	constexpr bool Result = Messenger::Privates::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<2>>::value && Messenger::Privates::HasMessageProcessor<HasProperMessageProcessor, MessageType<2>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<2>>::value && Messenger::Privates::HasMessageProcessor<HasProperMessageProcessor, MessageType<2>>::value;
 	EXPECT_EQ(Result, true);
 }

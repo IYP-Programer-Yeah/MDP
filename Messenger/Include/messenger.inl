@@ -5,7 +5,7 @@
 
 namespace Messenger
 {
-	namespace Privates
+	namespace Private
 	{
 		// Itterates on FTs and calls the static execute function on each template instantiation of FT.
 		template <template <std::size_t> class FT, std::size_t N, std::size_t M = 0> struct ForEach;
@@ -44,13 +44,6 @@ namespace Messenger
 			}
 		};
 
-		//Passes a single message to a module.
-		template <std::size_t M> struct pass_message;
-		//Passes a tuple of messages to a module.
-		template <std::size_t M> struct pass_message_tuple;
-		//Passes a tuple of messages to a tuple of modules.
-		template <typename MET, typename MTT, typename TT> void pass_tuple_message_tuple(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple);
-
 		// Checks the module to see if it has the proper message processor.
 		template <typename MOT, typename... MPAT> class HasMessageProcessor
 		{
@@ -69,6 +62,13 @@ namespace Messenger
 			// If the module has the proper message processor, this value will be true, otherwise this will be false.
 			static constexpr bool value = std::is_same<std::true_type, decltype(test_processor_method<MOT>(nullptr))>::value;
 		};
+
+		//Passes a single message to a module.
+		template <std::size_t M> struct pass_message;
+		//Passes a tuple of messages to a module.
+		template <std::size_t M> struct pass_message_tuple;
+		//Passes a tuple of messages to a tuple of modules.
+		template <typename MET, typename MTT, typename TT> void pass_tuple_message_tuple(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple);
 
 		// Passes a single message to a single module.
 		// The result of processing a message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
