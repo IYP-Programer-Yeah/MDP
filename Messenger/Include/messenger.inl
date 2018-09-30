@@ -111,7 +111,7 @@ namespace Messenger
 		//pass a message to internal modules
 		template <typename MT> void pass_message(const MT& message) const
 		{
-			Privates::ForEach<Privates::pass_message, sizeof... (Ts)>::execute(*this, message, modules);
+			Private::ForEach<Private::pass_message, sizeof... (Ts)>::execute(*this, message, modules);
 		}
 
 		//get a certain module
