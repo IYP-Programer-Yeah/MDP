@@ -27,6 +27,6 @@ TEST(HasMessageProcessorTest, HasProperMessageProcessorWithMessengerTest)
 
 TEST(HasMessageProcessorTest, HasProperMessageProcessorWithAndWithoutMessengerTest)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<2>>::value && Messenger::Privates::HasMessageProcessor<HasProperMessageProcessor, MessageType<2>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<2>>::value && Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<2>>::value;
 	EXPECT_EQ(Result, true);
 }
