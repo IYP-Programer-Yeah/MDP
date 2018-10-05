@@ -5,7 +5,7 @@
 int main()
 {
 	// Instantiation of messenger.
-	Example::Messenger messenger;
+	Example::MessengerType messenger;
 	// Pass an int message to messenger.
 	messenger.pass_message(12);
 	// Example of accessing a module.

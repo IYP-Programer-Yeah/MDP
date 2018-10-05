@@ -10,5 +10,5 @@
 namespace Example
 {
 	// The specialization of Messenger for our use with proper modules.
-	typedef Messenger::Messenger<Example::ModuleA, Example::ModuleB> Messenger;
+	using MessengerType = Messenger::Messenger<Example::ModuleA, Example::ModuleB>;
 }
