@@ -19,7 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Test\Source\conditional-pass-message-test.cpp" />
+    <ClCompile Include="..\..\Test\Source\for-each-test.cpp" />
     <ClCompile Include="..\..\Test\Source\has-message-processor-test.cpp" />
+    <ClCompile Include="..\..\Test\Source\messenger-test.cpp" />
     <ClCompile Include="..\..\Test\Source\test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

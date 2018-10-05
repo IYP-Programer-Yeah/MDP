@@ -1,5 +1,5 @@
 #include <messenger.inl>
-#include <gtest\gtest.h>
+#include <gtest/gtest.h>
 
 // Test name convention:
 // <MessageDefinition>_<MessengerDefinition>
