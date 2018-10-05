@@ -106,15 +106,18 @@ namespace Messenger
 		mutable module_tuple_type modules;
 
 	public:
+		// The count of modules in messenger.
+		static constexpr std::size_t module_count = sizeof... (Ts);
+
 		Messenger() {}
 
-		//pass a message to internal modules
+		// Pass a message to internal modules.
 		template <typename MT> void pass_message(const MT& message) const
 		{
-			Private::ForEach<Private::pass_message, sizeof... (Ts)>::execute(*this, message, modules);
+			Private::ForEach<Private::pass_message, module_count>::execute(*this, message, modules);
 		}
 
-		//get a certain module
+		// Get a certain module.
 		template <std::size_t N> typename std::tuple_element<N, module_tuple_type>::type &get_module()
 		{
 			return std::get<N>(modules);
