@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Test\Source\conditional-pass-message-test.cpp" />
-    <ClCompile Include="..\..\Test\Source\for-each-test.cpp" />
-    <ClCompile Include="..\..\Test\Source\has-message-processor-test.cpp" />
-    <ClCompile Include="..\..\Test\Source\messenger-test.cpp" />
-    <ClCompile Include="..\..\Test\Source\test.cpp" />
+    <ClCompile Include="..\..\..\..\Test\Source\conditional-pass-message-test.cpp" />
+    <ClCompile Include="..\..\..\..\Test\Source\for-each-test.cpp" />
+    <ClCompile Include="..\..\..\..\Test\Source\has-message-processor-test.cpp" />
+    <ClCompile Include="..\..\..\..\Test\Source\messenger-test.cpp" />
+    <ClCompile Include="..\..\..\..\Test\Source\test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8BF59893-98EF-420D-8FE0-1140BEA8AC36}</ProjectGuid>
@@ -96,7 +96,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Dependencies\googletest\googletest\include\;..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Dependencies\googletest\googletest\include\;..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
     <PreBuildEvent>
       <Command>
@@ -120,7 +120,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Dependencies\googletest\googletest\include\;..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Dependencies\googletest\googletest\include\;..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
     <PreBuildEvent>
       <Command>
@@ -146,7 +146,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Dependencies\googletest\googletest\include\;..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Dependencies\googletest\googletest\include\;..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -174,7 +174,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Dependencies\googletest\googletest\include\;..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Dependencies\googletest\googletest\include\;..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

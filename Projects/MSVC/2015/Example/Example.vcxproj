@@ -85,7 +85,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -93,7 +93,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,7 +103,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -117,7 +117,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Messenger\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\Messenger\Include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -125,13 +125,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\..\Example\Source\example-messenger.inl" />
-    <None Include="..\..\Example\Source\example-module-a.inl" />
-    <None Include="..\..\Example\Source\example-module-b.inl" />
-    <None Include="..\..\Messenger\Include\messenger.inl" />
+    <None Include="..\..\..\..\Example\Source\example-messenger.inl" />
+    <None Include="..\..\..\..\Example\Source\example-module-a.inl" />
+    <None Include="..\..\..\..\Example\Source\example-module-b.inl" />
+    <None Include="..\..\..\..\Messenger\Include\messenger.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Example\Source\example.cpp" />
+    <ClCompile Include="..\..\..\..\Example\Source\example.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

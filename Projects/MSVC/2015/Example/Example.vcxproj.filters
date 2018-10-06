@@ -15,19 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Test\Source\test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Test\Source\has-message-processor-test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Test\Source\for-each-test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Test\Source\conditional-pass-message-test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Test\Source\messenger-test.cpp">
+    <None Include="..\..\..\..\Messenger\Include\messenger.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\..\..\Example\Source\example-messenger.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\..\..\Example\Source\example-module-a.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\..\..\Example\Source\example-module-b.inl">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Example\Source\example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
