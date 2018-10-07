@@ -33,6 +33,8 @@ template <> struct MessengerModule<0>
 		message.check_message_order(10);
 		return std::make_tuple();
 	}
+	
+	int get_module_test = 0;
 };
 
 template <> struct MessengerModule<1>
@@ -54,6 +56,8 @@ template <> struct MessengerModule<1>
 		message.check_message_order(7);
 		return std::make_tuple();
 	}
+
+	int get_module_test = 1;
 };
 
 template <> struct MessengerModule<2>
@@ -75,6 +79,8 @@ template <> struct MessengerModule<2>
 		message.check_message_order(8);
 		return std::make_tuple();
 	}
+
+	int get_module_test = 2;
 };
 
 template <> struct MessengerModule<3>
@@ -98,9 +104,35 @@ template <> struct MessengerModule<3>
 		messenger.pass_message(MessageType<4>(message));
 		return std::make_tuple();
 	}
+
+	int get_module_test = 3;
 };
 
 using MessengerType = Messenger::Messenger<MessengerModule<0>, MessengerModule<1>, MessengerModule<2>, MessengerModule<3>>;
+
+TEST(MessengerTest, ModuleCountTest)
+{
+	EXPECT_EQ(MessengerType::module_count, 4);
+}
+
+TEST(MessengerTest, GetModuleTest)
+{
+	MessengerType messenger;
+	EXPECT_EQ(messenger.get_module<0>().get_module_test, 0);
+	EXPECT_EQ(messenger.get_module<1>().get_module_test, 1);
+	EXPECT_EQ(messenger.get_module<2>().get_module_test, 2);
+	EXPECT_EQ(messenger.get_module<3>().get_module_test, 3);
+
+	messenger.get_module<0>().get_module_test++;
+	messenger.get_module<1>().get_module_test++;
+	messenger.get_module<2>().get_module_test++;
+	messenger.get_module<3>().get_module_test++;
+
+	EXPECT_EQ(messenger.get_module<0>().get_module_test, 1);
+	EXPECT_EQ(messenger.get_module<1>().get_module_test, 2);
+	EXPECT_EQ(messenger.get_module<2>().get_module_test, 3);
+	EXPECT_EQ(messenger.get_module<3>().get_module_test, 4);
+}
 
 TEST(MessengerTest, MessagePassingOrderAndCoverageTest)
 {
