@@ -25,7 +25,7 @@ template <std::size_t M> struct ForEachCheck
 
 TEST(ForEachTest, OrderAndCoverageTest)
 {
-	Messenger::Private::ForEach<ForEachCheck, N + 1>::execute();
+	Messenger::Private::ForEach<ForEachCheck, N>::execute();
 	bool result = true;
 
 	// Checking coverage.
