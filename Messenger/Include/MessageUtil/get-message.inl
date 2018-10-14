@@ -1,3 +1,5 @@
+#pragma once
+
 namespace MessageUtil
 {
 	template<typename T, typename Entity> struct Get
