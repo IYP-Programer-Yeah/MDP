@@ -16,6 +16,9 @@
     <Filter Include="Source Files\MessageUtil">
       <UniqueIdentifier>{eff1364e-0135-473b-8c18-c933f1ce7f6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MessageUtil">
+      <UniqueIdentifier>{c7469934-0ad7-46ca-bb67-3627cddba019}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Test\Source\test.cpp">
@@ -36,5 +39,19 @@
     <ClCompile Include="..\..\..\..\Test\Source\MessageUtil\get-message-test.cpp">
       <Filter>Source Files\MessageUtil</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Test\Source\MessageUtil\set-message-test.cpp">
+      <Filter>Source Files\MessageUtil</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl">
+      <Filter>Header Files\MessageUtil</Filter>
+    </None>
+    <None Include="..\..\..\..\Messenger\Include\MessageUtil\set-message.inl">
+      <Filter>Header Files\MessageUtil</Filter>
+    </None>
+    <None Include="..\..\..\..\Messenger\Include\messenger.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

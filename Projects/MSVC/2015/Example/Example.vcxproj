@@ -128,7 +128,6 @@
     <None Include="..\..\..\..\Example\Source\example-messenger.inl" />
     <None Include="..\..\..\..\Example\Source\example-module-a.inl" />
     <None Include="..\..\..\..\Example\Source\example-module-b.inl" />
-    <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl" />
     <None Include="..\..\..\..\Messenger\Include\messenger.inl" />
   </ItemGroup>
   <ItemGroup>

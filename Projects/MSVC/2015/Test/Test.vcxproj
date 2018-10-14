@@ -23,8 +23,14 @@
     <ClCompile Include="..\..\..\..\Test\Source\for-each-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\has-message-processor-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\MessageUtil\get-message-test.cpp" />
+    <ClCompile Include="..\..\..\..\Test\Source\MessageUtil\set-message-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\messenger-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl" />
+    <None Include="..\..\..\..\Messenger\Include\MessageUtil\set-message.inl" />
+    <None Include="..\..\..\..\Messenger\Include\messenger.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8BF59893-98EF-420D-8FE0-1140BEA8AC36}</ProjectGuid>

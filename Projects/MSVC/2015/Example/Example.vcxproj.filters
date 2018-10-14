@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\MessageUtil">
-      <UniqueIdentifier>{400fcdc2-51e5-4b47-910b-be51a6202110}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Messenger\Include\messenger.inl">
@@ -29,9 +26,6 @@
     </None>
     <None Include="..\..\..\..\Example\Source\example-module-b.inl">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl">
-      <Filter>Header Files\MessageUtil</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
