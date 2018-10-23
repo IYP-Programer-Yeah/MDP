@@ -6,6 +6,6 @@ namespace MessageUtil
 	{
 		T value;
 
-		explicit Set(T& i_value) : value(i_value){}
+		explicit Set(const T& i_value) : value(i_value){}
 	};
 }
