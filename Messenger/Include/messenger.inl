@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <tuple>
+#include <type_traits>
 
 namespace Messenger
 {
@@ -22,25 +23,6 @@ namespace Messenger
 			{
 				FT<M>::execute(std::forward<AT>(args)...);
 				ForEach<FT, N, M + 1>::execute(std::forward<AT>(args)...);
-			}
-		};
-
-		// TMP conditional call. Calls the pass_message function if the DoPass is true.
-		template <bool DoPass> struct ConditionalPassMessage;
-
-		template<> struct ConditionalPassMessage<true>
-		{
-			template <typename MOT, typename... MPAT> static auto pass_message(MOT& module, const MPAT & ... args) -> decltype(module.process_message(args...))
-			{
-				return module.process_message(args...);
-			}
-		};
-
-		template<> struct ConditionalPassMessage<false>
-		{
-			template <typename MOT, typename... MPAT> static std::tuple<> pass_message(MOT& module, const MPAT & ... args)
-			{
-				return std::tuple<>();
 			}
 		};
 
@@ -70,14 +52,22 @@ namespace Messenger
 		//Passes a tuple of messages to a tuple of modules.
 		template <typename MET, typename MTT, typename TT> void pass_tuple_message_tuple(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple);
 
+		// TMP conditional call. Does proper process_message call, and return handling if message processor exists.
+		template <std::size_t I, typename MET, typename TT, typename... Args, typename = typename std::enable_if<HasMessageProcessor<typename std::tuple_element<I, TT>::type, Args...>::value>::type > void do_message_processor(const MET &messenger, TT& modules_tuple, Args&& ... args)
+		{
+			pass_tuple_message_tuple(messenger, std::get<I>(modules_tuple).process_message(std::forward<Args>(args)...), modules_tuple);
+		}
+
+		template <std::size_t I> void do_message_processor(...) {}
+
 		// Passes a single message to a single module.
 		// The result of processing a message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
 		template <std::size_t M> struct pass_message
 		{
 			template <typename MET, typename MT, typename TT> static void execute(const MET &messenger, const MT& message, TT& modules_tuple)
 			{
-				pass_tuple_message_tuple(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MT>::value>::pass_message((std::get<M>(modules_tuple)), message), modules_tuple);
-				pass_tuple_message_tuple(messenger, ConditionalPassMessage<HasMessageProcessor<typename std::tuple_element<M, TT>::type, MET, MT>::value>::pass_message((std::get<M>(modules_tuple)), messenger, message), modules_tuple);
+				do_message_processor<M>(messenger, modules_tuple, message);
+				do_message_processor<M>(messenger, modules_tuple, messenger, message);
 			}
 		};
 
