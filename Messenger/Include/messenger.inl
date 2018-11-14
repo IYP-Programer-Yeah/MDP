@@ -94,11 +94,6 @@ namespace Messenger
 			template <std::size_t I> using Type = DoMessageProcessor<I, HasMessageProcessor<ModuleType, MessageType>::value, HasMessageProcessor<ModuleType, MessengerType, MessageType>::value>;
 		};
 
-
-		// Passes a single message to a single module.
-		// The result of processing a message is a tuple of messages to be passed to the modules, which is done using pass_tuple_message.
-
-
 		// Passes a message to a tuple of modules. The first module in the tuple is the first to recieve the message.
 		template <std::size_t M> struct PassMessageTuple
 		{
