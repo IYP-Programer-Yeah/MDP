@@ -21,7 +21,7 @@ namespace Messenger
 		{
 			template <typename... AT> static void execute(AT&& ... args)
 			{
-				FT<M>::execute(std::forward<AT>(args)...);
+				FT<M>::execute(args...);
 				ForEach<FT, N, M + 1>::execute(std::forward<AT>(args)...);
 			}
 		};
