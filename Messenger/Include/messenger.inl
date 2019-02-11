@@ -2,30 +2,17 @@
 
 #include <cstddef>
 #include <tuple>
-#include <type_traits>
+
+#include <Utility/integer-sequence.inl>
+#include <Utility/constexpr.inl>
+#include <Utility/for-each.inl>
+#include <Utility/tuple.inl>
+
 
 namespace Messenger
 {
 	namespace Private
 	{
-		// Itterates on FTs and calls the static execute function on each template instantiation of FT.
-		template <template <std::size_t> class FT, std::size_t N, std::size_t M = 0> struct ForEach;
-
-		// Final call, this does nothing.
-		template <template <std::size_t> class FT, std::size_t M> struct ForEach <FT, M, M>
-		{
-			template <typename... AT> static void execute(AT&& ... args) {}
-		};
-
-		template <template <std::size_t> class FT, std::size_t N, std::size_t M> struct ForEach
-		{
-			template <typename... AT> static void execute(AT&& ... args)
-			{
-				FT<M>::execute(args...);
-				ForEach<FT, N, M + 1>::execute(std::forward<AT>(args)...);
-			}
-		};
-
 		// Checks the module to see if it has the proper message processor.
 		template <typename MOT, typename... MPAT> class HasMessageProcessor
 		{
@@ -44,108 +31,128 @@ namespace Messenger
 			// If the module has the proper message processor, this value will be true, otherwise this will be false.
 			static constexpr bool value = std::is_same<std::true_type, decltype(test_processor_method<MOT>(nullptr))>::value;
 		};
-		//Passes a tuple of messages to a module.
-		template <std::size_t M> struct PassMessageTuple;
-		//Passes a tuple of messages to a tuple of modules.
-		template <typename MET, typename MTT, typename TT> void pass_tuple_message_tuple(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple);
 
-		// Pass single message to a single module if the module has proper message processor.
+		// Pass a single message to a single module if the module has proper message processor.
+		template <bool HasMessageProcessorWOMessenger, bool HasMessageProcessorWMessenger>
+		struct DoMessageProcessor;
+
+		// This is the case where the module, does not implement proper message processor for this message.
+		template <>
+		struct DoMessageProcessor <false, false>
+		{
+			template <typename ModuleType, typename MessengerType, typename MessageType>
+			CPP_14_CONSTEXPR static void process_message(ModuleType& module, const MessengerType &messenger, const MessageType &message) {}
+		};
+
+		// The module implements message processor that takes only the message as input.
+		template <>
+		struct DoMessageProcessor <true, false>
+		{
+			template <typename ModuleType, typename MessengerType, typename MessageType>
+			CPP_14_CONSTEXPR static void process_message(ModuleType& module, const MessengerType &messenger, const MessageType &message)
+			{
+				Utility::call_with_tuple_elements(messenger, module.process_message(message));
+			}
+		};
+
+		// This is the case the the module implementsa a single message processor that takes
+		// messenger with message as the input.
+		template <>
+		struct DoMessageProcessor <false, true>
+		{
+			template <typename ModuleType, typename MessengerType, typename MessageType>
+			CPP_14_CONSTEXPR static void process_message(ModuleType& module, const MessengerType &messenger, const MessageType &message)
+			{
+				Utility::call_with_tuple_elements(messenger, module.process_message(messenger, message));
+			}
+		};
+
+		// This is the case where the module implements both of the message processors for this message.
+		template <>
+		struct DoMessageProcessor <true, true>
+		{
+			template <typename ModuleType, typename MessengerType, typename MessageType>
+			CPP_14_CONSTEXPR static void process_message(ModuleType& module, const MessengerType &messenger, const MessageType &message)
+			{
+				Utility::call_with_tuple_elements(messenger, module.process_message(message));
+				Utility::call_with_tuple_elements(messenger, module.process_message(messenger, message));
+			}
+		};
+
+		// Pass a single message to a single module if the module has proper message processor.
 		// After passing the message, the returned messages are passed to messenger.
 		// This is a wrapper for class DoMessageProcessor for ease of use.
-		template <typename ModuleType, typename MessengerType, typename MessageType> class PassMessage
+		template <typename MessengerType, typename MessageType>
+		struct PassMessage
 		{
-			template <std::size_t I, bool HasMessageProcessorWOMessenger, bool HasMessageProcessorWMessenger> struct DoMessageProcessor;
-
-			// This is the case where the module, does not implement proper message processor for this message.
-			template <std::size_t I> struct DoMessageProcessor <I, false, false>
+			template <typename ModuleType>
+			CPP_14_CONSTEXPR void operator()(ModuleType& module) const
 			{
-				template <typename MET, typename TT, typename MT> static void execute(const MET &messenger, const MT& message, TT& modules_tuple) {}
-			};
-
-			// The module implements message processor that takes only the message as input.
-			template <std::size_t I> struct DoMessageProcessor <I, true, false>
-			{
-				template <typename MET, typename TT, typename MT> static void execute(const MET &messenger, const MT& message, TT& modules_tuple)
-				{
-					pass_tuple_message_tuple(messenger, std::get<I>(modules_tuple).process_message(message), modules_tuple);
-				}
-			};
-
-			// This is the case the the module implementsa a single message processor that takes
-			// messenger with message as the input.
-			template <std::size_t I> struct DoMessageProcessor <I, false, true>
-			{
-				template <typename MET, typename TT, typename MT> static void execute(const MET &messenger, const MT& message, TT& modules_tuple)
-				{
-					pass_tuple_message_tuple(messenger, std::get<I>(modules_tuple).process_message(messenger, message), modules_tuple);
-				}
-			};
-
-			// This is the case where the module implements both of the message processors for this message.
-			template <std::size_t I> struct DoMessageProcessor <I, true, true>
-			{
-				template <typename MET, typename TT, typename MT> static void execute(const MET &messenger, const MT& message, TT& modules_tuple)
-				{
-					pass_tuple_message_tuple(messenger, std::get<I>(modules_tuple).process_message(message), modules_tuple);
-					pass_tuple_message_tuple(messenger, std::get<I>(modules_tuple).process_message(messenger, message), modules_tuple);
-				}
-			};
-		public:
-			template <std::size_t I> using Type = DoMessageProcessor<I, HasMessageProcessor<ModuleType, MessageType>::value, HasMessageProcessor<ModuleType, MessengerType, MessageType>::value>;
-		};
-
-		// Passes a message to a tuple of modules. The first module in the tuple is the first to recieve the message.
-		template <std::size_t M> struct PassMessageTuple
-		{
-			template <typename MET, typename MTT, typename TT> static void execute(const MET &messenger, const MTT& messages_tuple, TT& modules_tuple)
-			{
-				ForEach<PassMessageHelper<TT, MET, typename std::tuple_element<M, MTT>::type>::template Type, std::tuple_size<TT>::value>::execute(messenger, std::get<M>(messages_tuple), modules_tuple);
+				DoMessageProcessor<HasMessageProcessor<ModuleType, MessageType>::value, HasMessageProcessor<ModuleType, MessengerType, MessageType>::value>::process_message(module, messenger, message);
 			}
-		private:
-			// A helper class to costumize the use of message passer for current loop.
-			template <typename ModuleTupleType, typename MessengerType, typename MessageType> struct PassMessageHelper
-			{
-				template <std::size_t I>
-				using Type = typename PassMessage<typename std::tuple_element<I, ModuleTupleType>::type, MessengerType, MessageType>::template Type<I>;
-			};
+
+			const MessengerType &messenger;
+			const MessageType &message;
 		};
 
-		//The helper function that passes a tuple of messages to a tuple of modules. First the first message on the tuple is passed to all of the modules then the rest of the messages are passed in the same manner.
-		template <typename MET, typename MTT, typename TT> void pass_tuple_message_tuple(const MET& messenger, const MTT& messages_tuple, TT& modules_tuple)
+		//The messenger implementation
+		template <typename... Modules>
+		class MessengerImpl
 		{
-			ForEach<PassMessageTuple, std::tuple_size<MTT>::value>::execute(messenger, messages_tuple, modules_tuple);
-		}
+			//The tuple of modules
+			using ModuleTupleType = std::tuple<Modules...>;
+			mutable ModuleTupleType modules;
+
+		public:
+
+			// The count of modules in messenger.
+			static constexpr std::size_t module_count = sizeof... (Modules);
+
+			template <typename Message>
+			CPP_14_CONSTEXPR void operator()(const Message& message) const
+			{
+				struct Lambda
+				{
+					CPP_14_CONSTEXPR void operator()(Modules &... i_modules) const
+					{
+						Utility::for_each(message_passer, i_modules...);
+					}
+
+					const Private::PassMessage<MessengerImpl<Modules...>, Message> message_passer;
+				};
+				Utility::call_with_tuple_elements(Lambda{ { *this, message } }, modules);
+			}
+
+			// Pass a message to internal modules.
+			template <typename... Messages>
+			CPP_14_CONSTEXPR void operator()(const Messages &... messages) const
+			{
+				Utility::for_each(*this, messages...);
+			}
+
+			// Pass a message to internal modules.
+			template <typename... Messages>
+			CPP_14_CONSTEXPR void pass_message(const Messages &... messages) const
+			{
+				this->operator()(messages...);
+			}
+
+			// Get a certain module.
+			template <std::size_t N>
+			constexpr typename std::tuple_element<N, ModuleTupleType>::type &get_module() const
+			{
+				return std::get<N>(modules);
+			}
+		};
+
+		template <typename... Modules>
+		struct Messenger : private MessengerImpl<Modules...>
+		{
+			using MessengerImpl<Modules...>::module_count;
+			using MessengerImpl<Modules...>::pass_message;
+			using MessengerImpl<Modules...>::get_module;
+		};
 	}
 
-	//The messenger
-	template <typename... Ts > class Messenger
-	{
-		//The tuple of modules
-		using ModuleTupleType = std::tuple<Ts...>;
-		mutable ModuleTupleType modules;
-
-
-		// A helper class to costumize the use of message passer for current loop.
-		template <typename MessageType> struct PassMessageHelper
-		{
-			template <std::size_t I> using Type = typename Private::PassMessage<typename std::tuple_element<I, ModuleTupleType>::type, Messenger<Ts...>, MessageType>::template Type<I>;
-		};
-	public:
-		// The count of modules in messenger.
-		static constexpr std::size_t module_count = sizeof... (Ts);
-
-		Messenger() {}
-
-		// Pass a message to internal modules.
-		template <typename MT> void pass_message(const MT& message) const
-		{
-			Private::ForEach<PassMessageHelper<MT>::template Type, module_count>::execute(*this, message, modules);
-		}
-
-		// Get a certain module.
-		template <std::size_t N> typename std::tuple_element<N, ModuleTupleType>::type &get_module()
-		{
-			return std::get<N>(modules);
-		}
-	};
+	using Private::Messenger;
 }

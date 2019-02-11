@@ -1,5 +1,5 @@
-#include <messenger.inl>
-#include <MessageUtil/get-message.inl>
+#include <MDP/messenger.inl>
+#include <MDP/MessageUtil/get-message.inl>
 #include <gtest/gtest.h>
 
 struct A {};

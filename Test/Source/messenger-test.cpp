@@ -1,4 +1,4 @@
-#include <messenger.inl>
+#include <MDP/messenger.inl>
 #include <gtest/gtest.h>
 
 template<std::size_t N> struct MessageType

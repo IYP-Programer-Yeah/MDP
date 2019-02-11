@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\MessageUtil">
+      <UniqueIdentifier>{68a06ee2-a4ec-445c-ab14-be8d10f1477b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{64739abe-0aeb-48f8-9ca9-6768babd428b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{26df1fb3-8ad5-444a-856a-58c31ba80ace}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl">
+      <Filter>Header Files\MessageUtil</Filter>
+    </None>
+    <None Include="..\..\..\..\Messenger\Include\MessageUtil\set-message.inl">
+      <Filter>Header Files\MessageUtil</Filter>
+    </None>
+    <None Include="Scripts\install.sh">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\..\..\Messenger\Include\messenger.inl">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

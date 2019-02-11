@@ -1,7 +1,7 @@
 #pragma once
 
 // The definition of Messenger::Messenger
-#include <messenger.inl>
+#include <MDP/messenger.inl>
 // The definition of Test::ModuleA
 #include "example-module-a.inl"
 // The definition of Test::ModuleB
