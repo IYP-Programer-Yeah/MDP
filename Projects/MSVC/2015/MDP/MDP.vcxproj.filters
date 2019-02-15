@@ -18,6 +18,12 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{26df1fb3-8ad5-444a-856a-58c31ba80ace}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ModuleUtil">
+      <UniqueIdentifier>{afd75867-376a-42a9-b344-e48d552a1c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ModuleUtil\Message">
+      <UniqueIdentifier>{dad8cda9-eda6-445d-b208-2d062d42bbdf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl">
@@ -31,6 +37,12 @@
     </None>
     <None Include="..\..\..\..\Messenger\Include\messenger.inl">
       <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\..\..\Messenger\Include\ModuleUtil\Message\multiplexer.inl">
+      <Filter>Header Files\ModuleUtil\Message</Filter>
+    </None>
+    <None Include="..\..\..\..\Messenger\Include\ModuleUtil\multiplexer.inl">
+      <Filter>Header Files\ModuleUtil</Filter>
     </None>
   </ItemGroup>
 </Project>

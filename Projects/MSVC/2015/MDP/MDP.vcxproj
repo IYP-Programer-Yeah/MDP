@@ -172,6 +172,8 @@
     <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl" />
     <None Include="..\..\..\..\Messenger\Include\MessageUtil\set-message.inl" />
     <None Include="..\..\..\..\Messenger\Include\messenger.inl" />
+    <None Include="..\..\..\..\Messenger\Include\ModuleUtil\Message\multiplexer.inl" />
+    <None Include="..\..\..\..\Messenger\Include\ModuleUtil\multiplexer.inl" />
     <None Include="Scripts\install.sh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
