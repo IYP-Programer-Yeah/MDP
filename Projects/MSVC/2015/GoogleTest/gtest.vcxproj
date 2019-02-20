@@ -68,20 +68,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(OutDir)temp\$(ProjectName)\</IntDir>
     <TargetName>gtestd</TargetName>
-    <OutDir>$(SolutionDir)\Build\Bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Build\Lib\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(OutDir)temp\$(ProjectName)\</IntDir>
     <TargetName>gtest</TargetName>
-    <OutDir>$(SolutionDir)\Build\Bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Build\Lib\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetName>gtestd</TargetName>
-    <OutDir>$(SolutionDir)\Build\Bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Build\Lib\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetName>gtest</TargetName>
-    <OutDir>$(SolutionDir)\Build\Bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Build\Lib\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
