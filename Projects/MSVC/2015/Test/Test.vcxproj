@@ -31,7 +31,7 @@
     <ClCompile Include="..\..\..\..\Test\Source\test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Test\Inlcude\order-checker.inl" />
+    <None Include="..\..\..\..\Test\Include\order-checker.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8BF59893-98EF-420D-8FE0-1140BEA8AC36}</ProjectGuid>

@@ -50,7 +50,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Test\Inlcude\order-checker.inl">
+    <None Include="..\..\..\..\Test\Include\order-checker.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

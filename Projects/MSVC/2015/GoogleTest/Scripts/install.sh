@@ -1,5 +1,5 @@
 Basedir="$(dirname "$(realpath "$0")")"
-if [ -z ${var+x} ];
+if [ -z ${Prefix+x} ];
 then
 	Prefix="$Basedir/../../Build"
 fi
