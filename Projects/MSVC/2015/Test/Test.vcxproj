@@ -25,6 +25,7 @@
     <ClCompile Include="..\..\..\..\Test\Source\MessageUtil\get-message-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\MessageUtil\set-message-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\messenger-test.cpp" />
+    <ClCompile Include="..\..\..\..\Test\Source\ModuleUtil\multiplexer-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\pass-by-ref-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\pass-message-send-receive-test.cpp" />
     <ClCompile Include="..\..\..\..\Test\Source\pass-message-order-test.cpp" />

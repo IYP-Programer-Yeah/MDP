@@ -16,6 +16,9 @@
     <Filter Include="Source Files\MessageUtil">
       <UniqueIdentifier>{eff1364e-0135-473b-8c18-c933f1ce7f6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ModuleUtil">
+      <UniqueIdentifier>{a636f70d-1ba5-4220-8e99-82ff8be0610d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Test\Source\test.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Test\Source\pass-message-send-receive-test.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Test\Source\ModuleUtil\multiplexer-test.cpp">
+      <Filter>Source Files\ModuleUtil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
