@@ -109,195 +109,195 @@ using MessengerType = Messenger::Messenger<HasProperMessageProcessor, HasNoPrope
 // Test#0 No proper message processor.
 TEST(HasMessageProcessorTest, NO_PROCESSOR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<0>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<0>>::Value;
 	EXPECT_EQ(Result, false);
 }
 
 // Test#1
 TEST(HasMessageProcessorTest, CR_NONE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<1>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<1>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#2
 TEST(HasMessageProcessorTest, CC_NONE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<2>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<2>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#3
 TEST(HasMessageProcessorTest, CTR_NONE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<3>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<3>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#4
 TEST(HasMessageProcessorTest, CTC_NONE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<4>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<4>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#5
 TEST(HasMessageProcessorTest, UR_NONE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<5>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<5>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#6
 TEST(HasMessageProcessorTest, CR_CR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<6>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<6>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#7
 TEST(HasMessageProcessorTest, CC_CR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<7>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<7>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#8
 TEST(HasMessageProcessorTest, CTR_CR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<8>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<8>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#9
 TEST(HasMessageProcessorTest, CTC_CR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<9>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<9>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#10
 TEST(HasMessageProcessorTest, UR_CR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<10>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<10>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#11
 TEST(HasMessageProcessorTest, CR_CC_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<11>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<11>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#12
 TEST(HasMessageProcessorTest, CC_CC_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<12>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<12>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#13
 TEST(HasMessageProcessorTest, CTR_CC_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<13>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<13>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#14
 TEST(HasMessageProcessorTest, CTC_CC_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<14>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<14>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#15
 TEST(HasMessageProcessorTest, UR_CC_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<15>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<15>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#16
 TEST(HasMessageProcessorTest, CR_UR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<16>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<16>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#17
 TEST(HasMessageProcessorTest, CC_UR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<17>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<17>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#18
 TEST(HasMessageProcessorTest, CTR_UR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<18>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<18>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#19
 TEST(HasMessageProcessorTest, CTC_UR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<19>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<19>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#20
 TEST(HasMessageProcessorTest, UR_UR_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<20>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessengerType, MessageType<20>>::Value;
 	EXPECT_EQ(Result, true);
 }
 
 // Test#21
 TEST(HasMessageProcessorTest, BAD_RETURN_TYPE_NONE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<21>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<21>>::Value;
 	EXPECT_EQ(Result, false);
 }
 
 // Test#22
 TEST(HasMessageProcessorTest, NON_CONST_REF_MESSAGE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<22>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<22>>::Value;
 	EXPECT_EQ(Result, false);
 }
 
 // Test#23
 TEST(HasMessageProcessorTest, WORNG_MESSAGE_TYPE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<23>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<23>>::Value;
 	EXPECT_EQ(Result, false);
 }
 
 // Test#24
 TEST(HasMessageProcessorTest, NON_CONST_REF_MESSAGE_CORRECT_MESSENGER_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<24>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<24>>::Value;
 	EXPECT_EQ(Result, false);
 }
 
 // Test#25
 TEST(HasMessageProcessorTest, CORRECT_NON_CONST_REF_MESSENGER_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<25>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<25>>::Value;
 	EXPECT_EQ(Result, false);
 }
 
 // Test#26
 TEST(HasMessageProcessorTest, WRONG_MESSAGE_TYPE_CORRECT_MESSENGER_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<26>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<26>>::Value;
 	EXPECT_EQ(Result, false);
 }
 
 // Test#27
 TEST(HasMessageProcessorTest, CORRECT_MESSAGE_WRONG_MESSENGER_TYPE_TEST)
 {
-	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<27>>::value;
+	constexpr bool Result = Messenger::Private::HasMessageProcessor<HasProperMessageProcessor, MessageType<27>>::Value;
 	EXPECT_EQ(Result, false);
 }

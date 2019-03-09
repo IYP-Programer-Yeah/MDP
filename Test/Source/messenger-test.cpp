@@ -112,7 +112,7 @@ using MessengerType = Messenger::Messenger<MessengerModule<0>, MessengerModule<1
 
 TEST(MessengerTest, ModuleCountTest)
 {
-	EXPECT_EQ(MessengerType::module_count, 4);
+	EXPECT_EQ(MessengerType::ModuleCount, 4);
 }
 
 TEST(MessengerTest, GetModuleTest)
