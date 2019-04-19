@@ -23,7 +23,7 @@ script:
   - make install
   - ./Artifact/bin/Test
   - echo "Building for coverage:"
-  - cmake .. -DCMAKE_INSTALL_PREFIX:PATH=./Artifact -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage" -DCMAKE_LD_FLAGS="-lgcov"
+  - cmake .. -DCMAKE_INSTALL_PREFIX:PATH=./Artifact -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -O0 -g3"
   - make
   - make install
   - ./Artifact/bin/Test
