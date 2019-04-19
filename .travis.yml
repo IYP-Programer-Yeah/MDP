@@ -26,7 +26,6 @@ script:
   - cmake .. -DCMAKE_INSTALL_PREFIX:PATH=./Artifact -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage" -DCMAKE_LD_FLAGS="-lgcov"
   - make
   - make install
-  - bash ./../../../codecov.sh
   - ./Artifact/bin/Test
 after_success:
   - bash <(curl -s https://codecov.io/bash)
