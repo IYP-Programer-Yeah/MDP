@@ -1,3 +1,4 @@
+#!/bin/bash
 Basedir="$(dirname "$(realpath "$0")")"
 if [ -z ${Prefix+x} ];
 then
