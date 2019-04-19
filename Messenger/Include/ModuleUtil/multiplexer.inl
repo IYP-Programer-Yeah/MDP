@@ -22,8 +22,8 @@ namespace ModuleUtil
 				message.n, messenger, message.args);
 			return std::make_tuple();
 		}
-	private:
 
+	private:
 		template<typename Messenger, template<std::size_t> class T, typename TupleType, std::size_t... FuncIndices>
 		CPP_14_CONSTEXPR static void generate_message_and_pass_message(Utility::IntegerSequence<std::size_t, FuncIndices...>,
 			const std::size_t n, const Messenger &messenger, const TupleType &args)

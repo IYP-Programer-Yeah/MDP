@@ -27,7 +27,6 @@ namespace Messenger
 			template <typename C> static std::false_type test_processor_method(...);
 
 		public:
-
 			// If the module has the proper message processor, this value will be true, otherwise this will be false.
 			static constexpr bool Value = std::is_same<std::true_type, decltype(test_processor_method<MOT>(nullptr))>::value;
 		};
@@ -104,7 +103,6 @@ namespace Messenger
 			mutable ModuleTupleType modules;
 
 		public:
-
 			// The count of modules in messenger.
 			static constexpr std::size_t ModuleCount = sizeof... (Modules);
 

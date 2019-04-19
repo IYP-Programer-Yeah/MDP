@@ -15,8 +15,8 @@ namespace Example
 			// The message holds a string that the processesor will print.
 			std::string report; 
 		};
-	public:
 
+	public:
 		int last_recieved_message;
 
 		// This is a message processor that will process every message that is of type int.
