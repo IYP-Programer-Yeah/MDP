@@ -14,8 +14,8 @@ namespace Example
 		{
 			std::string report;
 		};
-	public:
 
+	public:
 		// This is a message processor that takes a messenger and a message, since messenger
 		// type is not availbe here, a template parameter is used for messenger type.
 		template <typename T> auto process_message(const T& messenger, const std::string& message)
