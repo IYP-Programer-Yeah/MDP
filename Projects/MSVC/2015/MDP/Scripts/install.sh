@@ -8,4 +8,4 @@ fi
 InstallPath="$Prefix/Include/MDP/"
 
 mkdir "$InstallPath" -p
-cp "$Basedir/../../../../../Messenger/Include/." "$InstallPath" -r
+cp "$Basedir/../../../../../MDP/Include/." "$InstallPath" -r
