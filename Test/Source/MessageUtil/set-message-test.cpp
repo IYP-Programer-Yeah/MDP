@@ -1,90 +1,96 @@
 #include <MDP/messenger.inl>
 #include <MDP/MessageUtil/set-message.inl>
 #include <gtest/gtest.h>
+#include <iostream>
 
-struct A {};
-struct B {};
-struct C {};
-struct Sync {};
-
-using SetA = MessageUtil::Set<int, A>;
-using SetB = MessageUtil::Set<int, B>;
-using SetC = MessageUtil::Set<int, C>;
-
-struct ModuleA
+namespace SetMessageTest
 {
-	int a = 10;
-	int b;
-	int c;
+	struct A {};
+	struct B {};
+	struct C {};
+	struct Sync {};
 
-	std::tuple<SetA> process_message(const Sync&)
+	using SetA = MessageUtil::Set<int, A>;
+	using SetB = MessageUtil::Set<int, B>;
+	using SetC = MessageUtil::Set<int, C>;
+
+	struct ModuleA
 	{
-		return std::make_tuple(SetA(a));
-	}
+		int a = 10;
+		int b;
+		int c;
 
-	std::tuple<> process_message(const SetB &set_b)
+		std::tuple<SetA> process_message(const Sync&)
+		{
+			return std::make_tuple(SetA(a));
+		}
+
+		std::tuple<> process_message(const SetB &set_b)
+		{
+			b = set_b.value;
+			return std::make_tuple();
+		}
+
+		std::tuple<> process_message(const SetC &set_c)
+		{
+			c = set_c.value;
+			return std::make_tuple();
+		}
+	};
+
+	struct ModuleB
 	{
-		b = set_b.value;
-		return std::make_tuple();
-	}
+		int a;
+		int b = 20;
+		int c;
 
-	std::tuple<> process_message(const SetC &set_c)
+		std::tuple<SetB> process_message(const Sync&)
+		{
+			return std::make_tuple(SetB(b));
+		}
+
+		std::tuple<> process_message(const SetA &set_a)
+		{
+			a = set_a.value;
+			return std::make_tuple();
+		}
+
+		std::tuple<> process_message(const SetC &set_c)
+		{
+			c = set_c.value;
+			return std::make_tuple();
+		}
+	};
+
+	struct ModuleC
 	{
-		c = set_c.value;
-		return std::make_tuple();
-	}
-};
+		int a;
+		int b;
+		int c = 30;
 
-struct ModuleB
-{
-	int a;
-	int b = 20;
-	int c;
+		template <typename T> std::tuple<> process_message(const T& messenger, const Sync&)
+		{
+			messenger.pass_message(SetC(c));
+			return std::make_tuple();
+		}
 
-	std::tuple<SetB> process_message(const Sync&)
-	{
-		return std::make_tuple(SetB(b));
-	}
+		std::tuple<> process_message(const SetA &set_a)
+		{
+			a = set_a.value;
+			return std::make_tuple();
+		}
 
-	std::tuple<> process_message(const SetA &set_a)
-	{
-		a = set_a.value;
-		return std::make_tuple();
-	}
+		std::tuple<> process_message(const SetB &set_b)
+		{
+			b = set_b.value;
+			return std::make_tuple();
+		}
+	};
 
-	std::tuple<> process_message(const SetC &set_c)
-	{
-		c = set_c.value;
-		return std::make_tuple();
-	}
-};
+	using MessengerType = Messenger::Messenger<ModuleA, ModuleB, ModuleC>;
+}
 
-struct ModuleC
-{
-	int a;
-	int b;
-	int c = 30;
-
-	template <typename T> std::tuple<> process_message(const T& messenger, const Sync&)
-	{
-		messenger.pass_message(SetC(c));
-		return std::make_tuple();
-	}
-
-	std::tuple<> process_message(const SetA &set_a)
-	{
-		a = set_a.value;
-		return std::make_tuple();
-	}
-
-	std::tuple<> process_message(const SetB &set_b)
-	{
-		b = set_b.value;
-		return std::make_tuple();
-	}
-};
-
-using MessengerType = Messenger::Messenger<ModuleA, ModuleB, ModuleC>;
+using namespace SetMessageTest;
 
 TEST(SetMessageTest, FunctionalityTest)
 {

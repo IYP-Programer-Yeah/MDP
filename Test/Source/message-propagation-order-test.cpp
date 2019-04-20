@@ -5,14 +5,19 @@
 
 #include "../Include/order-checker.inl"
 
-template <std::size_t N>
-struct OrderedModule
+namespace MessagePropagationOrderTest
 {
-	std::tuple<OrderCheckerMessage<N>> process_message(const OrderCheckerMessage<0>& message)
+	template <std::size_t N>
+	struct OrderedModule
 	{
-		return std::make_tuple(OrderCheckerMessage<N>(message));
-	}
-};
+		std::tuple<OrderCheckerMessage<N>> process_message(const OrderCheckerMessage<0>& message)
+		{
+			return std::make_tuple(OrderCheckerMessage<N>(message));
+		}
+	};
+}
+
+using namespace MessagePropagationOrderTest;
 
 TEST(MessagePropagationOrderTest, FiveConsecutiveMessages)
 {

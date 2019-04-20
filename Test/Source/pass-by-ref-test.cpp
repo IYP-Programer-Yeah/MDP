@@ -3,55 +3,60 @@
 
 #include <tuple>
 
-static const void * messenger_ptr;
-static const void * message_ptr;
-static const void * module_ptr;
-
-static const void * message_only_message_ptr;
-static const void * message_only_module_ptr;
-
-struct MessageOnly {};
-struct MessengerAndMessage {};
-struct DoubleProcessor {};
-
-struct RefCatcher
+namespace PassByRefTest
 {
-	std::tuple<> process_message(const MessageOnly& message)
+	static const void * messenger_ptr;
+	static const void * message_ptr;
+	static const void * module_ptr;
+
+	static const void * message_only_message_ptr;
+	static const void * message_only_module_ptr;
+
+	struct MessageOnly {};
+	struct MessengerAndMessage {};
+	struct DoubleProcessor {};
+
+	struct RefCatcher
 	{
-		message_only_message_ptr = &message;
-		message_only_module_ptr = this;
+		std::tuple<> process_message(const MessageOnly& message)
+		{
+			message_only_message_ptr = &message;
+			message_only_module_ptr = this;
 
-		return std::make_tuple();
-	}
+			return std::make_tuple();
+		}
 
-	template <typename Messenger>
-	std::tuple<> process_message(const Messenger& messenger, const MessengerAndMessage& message)
-	{
-		message_ptr = &message;
-		messenger_ptr = &messenger;
-		module_ptr = this;
+		template <typename Messenger>
+		std::tuple<> process_message(const Messenger& messenger, const MessengerAndMessage& message)
+		{
+			message_ptr = &message;
+			messenger_ptr = &messenger;
+			module_ptr = this;
 
-		return std::make_tuple();
-	}
+			return std::make_tuple();
+		}
 
-	std::tuple<> process_message(const DoubleProcessor& message)
-	{
-		message_only_message_ptr = &message;
-		message_only_module_ptr = this;
+		std::tuple<> process_message(const DoubleProcessor& message)
+		{
+			message_only_message_ptr = &message;
+			message_only_module_ptr = this;
 
-		return std::make_tuple();
-	}
+			return std::make_tuple();
+		}
 
-	template <typename Messenger>
-	std::tuple<> process_message(const Messenger& messenger, const DoubleProcessor& message)
-	{
-		message_ptr = &message;
-		messenger_ptr = &messenger;
-		module_ptr = this;
+		template <typename Messenger>
+		std::tuple<> process_message(const Messenger& messenger, const DoubleProcessor& message)
+		{
+			message_ptr = &message;
+			messenger_ptr = &messenger;
+			module_ptr = this;
 
-		return std::make_tuple();
-	}
-};
+			return std::make_tuple();
+		}
+	};
+}
+
+using namespace PassByRefTest;
 
 TEST(PassByRefTest, MessageOnlyProcessor)
 {
