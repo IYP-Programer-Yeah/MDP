@@ -26,23 +26,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Messenger\Include\MessageUtil\get-message.inl">
-      <Filter>Header Files\MessageUtil</Filter>
-    </None>
-    <None Include="..\..\..\..\Messenger\Include\MessageUtil\set-message.inl">
-      <Filter>Header Files\MessageUtil</Filter>
-    </None>
     <None Include="Scripts\install.sh">
       <Filter>Scripts</Filter>
     </None>
-    <None Include="..\..\..\..\Messenger\Include\messenger.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="..\..\..\..\Messenger\Include\ModuleUtil\Message\multiplexer.inl">
+    <None Include="..\..\..\..\MDP\Include\ModuleUtil\Message\multiplexer.inl">
       <Filter>Header Files\ModuleUtil\Message</Filter>
     </None>
-    <None Include="..\..\..\..\Messenger\Include\ModuleUtil\multiplexer.inl">
+    <None Include="..\..\..\..\MDP\Include\ModuleUtil\multiplexer.inl">
       <Filter>Header Files\ModuleUtil</Filter>
+    </None>
+    <None Include="..\..\..\..\MDP\Include\MessageUtil\get-message.inl">
+      <Filter>Header Files\MessageUtil</Filter>
+    </None>
+    <None Include="..\..\..\..\MDP\Include\MessageUtil\set-message.inl">
+      <Filter>Header Files\MessageUtil</Filter>
+    </None>
+    <None Include="..\..\..\..\MDP\Include\messenger.inl">
+      <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
 </Project>
