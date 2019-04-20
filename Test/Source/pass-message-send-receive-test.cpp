@@ -3,14 +3,18 @@
 
 #include "../Include/order-checker.inl"
 
-
-struct LoopModule
+namespace PassMessageSendReveiveTest
 {
-	std::tuple<OrderCheckerMessage<1>> process_message(const OrderCheckerMessage<0>& message)
+	struct LoopModule
 	{
-		return std::make_tuple(OrderCheckerMessage<1>(message));
-	}
-};
+		std::tuple<OrderCheckerMessage<1>> process_message(const OrderCheckerMessage<0>& message)
+		{
+			return std::make_tuple(OrderCheckerMessage<1>(message));
+		}
+	};
+}
+
+using namespace PassMessageSendReveiveTest;
 
 TEST(PassMessageSendReveiveTest, SingleMessage)
 {

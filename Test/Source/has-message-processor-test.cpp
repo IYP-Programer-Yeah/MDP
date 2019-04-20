@@ -15,96 +15,101 @@
 //  #3 CC: const messenger copy
 //  #4 UR: universal messenger ref
 
-template<std::size_t, typename M = void> struct MessageType{};
-
-struct HasProperMessageProcessor
+namespace HasMessageProcessorTest
 {
-	// Test#1 CR_NONE
-	std::tuple<> process_message(const MessageType<1>& message);
+	template<std::size_t, typename M = void> struct MessageType {};
 
-	// Test#2 CC_NONE
-	std::tuple<> process_message(const MessageType<2> message);
+	struct HasProperMessageProcessor
+	{
+		// Test#1 CR_NONE
+		std::tuple<> process_message(const MessageType<1>& message);
 
-	// Test#3 CTR_NONE
-	template <typename M> std::tuple<> process_message(const MessageType<3, M>& message);
+		// Test#2 CC_NONE
+		std::tuple<> process_message(const MessageType<2> message);
 
-	// Test#4 CTC_NONE
-	template <typename M> std::tuple<> process_message(const MessageType<4, M> message);
+		// Test#3 CTR_NONE
+		template <typename M> std::tuple<> process_message(const MessageType<3, M>& message);
 
-	// Test#5 UR_NONE
-	template <typename M> std::tuple<> process_message(MessageType<5, M>&& message);
+		// Test#4 CTC_NONE
+		template <typename M> std::tuple<> process_message(const MessageType<4, M> message);
 
-	// Test#6 CR_CR
-	template <typename T> std::tuple<int> process_message(const T& messenger, const MessageType<6>& message);
+		// Test#5 UR_NONE
+		template <typename M> std::tuple<> process_message(MessageType<5, M>&& message);
 
-	// Test#7 CC_CR
-	template <typename T> std::tuple<int> process_message(const T& messenger, const MessageType<7> message);
+		// Test#6 CR_CR
+		template <typename T> std::tuple<int> process_message(const T& messenger, const MessageType<6>& message);
 
-	// Test#8 CTR_CR
-	template <typename T, typename M> std::tuple<int> process_message(const T& messenger, const MessageType<8, M>& message);
+		// Test#7 CC_CR
+		template <typename T> std::tuple<int> process_message(const T& messenger, const MessageType<7> message);
 
-	// Test#9 CTC_CR
-	template <typename T, typename M> std::tuple<int> process_message(const T& messenger, const MessageType<9, M> message);
+		// Test#8 CTR_CR
+		template <typename T, typename M> std::tuple<int> process_message(const T& messenger, const MessageType<8, M>& message);
 
-	// Test#10 UR_CR
-	template <typename T, typename M> std::tuple<int> process_message(const T& messenger, const MessageType<10, M>&& message);
+		// Test#9 CTC_CR
+		template <typename T, typename M> std::tuple<int> process_message(const T& messenger, const MessageType<9, M> message);
 
-	// Test#11 CR_CC
-	template <typename T> std::tuple<int, char> process_message(const T messenger, const MessageType<11>& message);
+		// Test#10 UR_CR
+		template <typename T, typename M> std::tuple<int> process_message(const T& messenger, const MessageType<10, M>&& message);
 
-	// Test#12 CC_CC
-	template <typename T> std::tuple<int, char> process_message(const T messenger, const MessageType<12> message);
+		// Test#11 CR_CC
+		template <typename T> std::tuple<int, char> process_message(const T messenger, const MessageType<11>& message);
 
-	// Test#13 CTR_CC
-	template <typename T, typename M> std::tuple<int, char> process_message(const T messenger, const MessageType<13, M>& message);
+		// Test#12 CC_CC
+		template <typename T> std::tuple<int, char> process_message(const T messenger, const MessageType<12> message);
 
-	// Test#14 CTC_CC
-	template <typename T, typename M> std::tuple<int, char> process_message(const T messenger, const MessageType<14, M> message);
+		// Test#13 CTR_CC
+		template <typename T, typename M> std::tuple<int, char> process_message(const T messenger, const MessageType<13, M>& message);
 
-	// Test#15 UR_CC
-	template <typename T, typename M> std::tuple<int, char> process_message(const T messenger, const MessageType<15, M>&& message);
+		// Test#14 CTC_CC
+		template <typename T, typename M> std::tuple<int, char> process_message(const T messenger, const MessageType<14, M> message);
 
-	// Test#16 CR_UR
-	template <typename T> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<16>& message);
+		// Test#15 UR_CC
+		template <typename T, typename M> std::tuple<int, char> process_message(const T messenger, const MessageType<15, M>&& message);
 
-	// Test#17 CC_UR
-	template <typename T> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<17> message);
+		// Test#16 CR_UR
+		template <typename T> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<16>& message);
 
-	// Test#18 CTR_UR
-	template <typename T, typename M> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<18, M>& message);
+		// Test#17 CC_UR
+		template <typename T> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<17> message);
 
-	// Test#19 CTC_UR
-	template <typename T, typename M> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<19, M> message);
+		// Test#18 CTR_UR
+		template <typename T, typename M> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<18, M>& message);
 
-	// Test#20 UR_UR
-	template <typename T, typename M> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<20, M>&& message);
-};
+		// Test#19 CTC_UR
+		template <typename T, typename M> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<19, M> message);
 
-struct HasNoProperMessageProcessor
-{
-	// Test#21 BAD_RETURN_TYPE_NONE
-	int process_message(const MessageType<21>& message);
+		// Test#20 UR_UR
+		template <typename T, typename M> std::tuple<int, char, bool> process_message(T&& messenger, const MessageType<20, M>&& message);
+	};
 
-	// Test#22 NON_CONST_REF_MESSAGE
-	std::tuple<> process_message(MessageType<22>& message);
+	struct HasNoProperMessageProcessor
+	{
+		// Test#21 BAD_RETURN_TYPE_NONE
+		int process_message(const MessageType<21>& message);
 
-	// Test#23 WRONG_MESSAGE_TYPE
-	std::tuple<> process_message(const MessageType <0>& message);
+		// Test#22 NON_CONST_REF_MESSAGE
+		std::tuple<> process_message(MessageType<22>& message);
 
-	// Test#24 NON_CONST_REF_MESSAGE_CORRECT_MESSENGER
-	template <typename T> std::tuple<> process_message(const T& messenger, MessageType<24>& message);
+		// Test#23 WRONG_MESSAGE_TYPE
+		std::tuple<> process_message(const MessageType <0>& message);
 
-	// Test#25 CORRECT_NON_CONST_REF_MESSENGER
-	template <typename T> std::tuple<> process_message(T& messenger, const MessageType<25>& message);
+		// Test#24 NON_CONST_REF_MESSAGE_CORRECT_MESSENGER
+		template <typename T> std::tuple<> process_message(const T& messenger, MessageType<24>& message);
 
-	// Test#26 WRONG_MESSAGE_TYPE_CORRECT_MESSENGER
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<0>& message);
+		// Test#25 CORRECT_NON_CONST_REF_MESSENGER
+		template <typename T> std::tuple<> process_message(T& messenger, const MessageType<25>& message);
 
-	// Test#27 CORRECT_MESSAGE_WRONG_MESSENGER_TYPE
-	std::tuple<> process_message(const MessageType<0>& messenger, const MessageType<27>& message);
-};
+		// Test#26 WRONG_MESSAGE_TYPE_CORRECT_MESSENGER
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<0>& message);
 
-using MessengerType = Messenger::Messenger<HasProperMessageProcessor, HasNoProperMessageProcessor>;
+		// Test#27 CORRECT_MESSAGE_WRONG_MESSENGER_TYPE
+		std::tuple<> process_message(const MessageType<0>& messenger, const MessageType<27>& message);
+	};
+
+	using MessengerType = Messenger::Messenger<HasProperMessageProcessor, HasNoProperMessageProcessor>;
+}
+
+using namespace HasMessageProcessorTest;
 
 // Test#0 No proper message processor.
 TEST(HasMessageProcessorTest, NO_PROCESSOR_TEST)

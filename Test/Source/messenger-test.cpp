@@ -1,114 +1,119 @@
 #include <MDP/messenger.inl>
 #include <gtest/gtest.h>
 
-template<std::size_t N> struct MessageType
+namespace MessengerTest
 {
-	std::size_t &count;
-	bool &properly_ordered;
-	MessageType(std::size_t &message_count, bool &message_properly_ordered) : count(message_count), properly_ordered(message_properly_ordered) {}
-
-	template <typename T> explicit MessageType(const T& message) : MessageType(message.count, message.properly_ordered) {}
-
-	void check_message_order(const std::size_t message_number) const
+	template<std::size_t N> struct MessageType
 	{
-		properly_ordered = properly_ordered && (message_number == count);
-		count++;
-	}
-};
+		std::size_t &count;
+		bool &properly_ordered;
+		MessageType(std::size_t &message_count, bool &message_properly_ordered) : count(message_count), properly_ordered(message_properly_ordered) {}
 
-template <std::size_t N> struct MessengerModule;
+		template <typename T> explicit MessageType(const T& message) : MessageType(message.count, message.properly_ordered) {}
 
-template <> struct MessengerModule<0>
-{
-	// Start
-	template <typename T> std::tuple<MessageType<1>, MessageType<3>> process_message(const T& messenger, const MessageType<0> message)
+		void check_message_order(const std::size_t message_number) const
+		{
+			properly_ordered = properly_ordered && (message_number == count);
+			count++;
+		}
+	};
+
+	template <std::size_t N> struct MessengerModule;
+
+	template <> struct MessengerModule<0>
 	{
-		message.check_message_order(0);
-		// MessageType<2> is returned on MessengerModule<3> module's MessageType<1> message processor.
-		return std::make_tuple(MessageType<1>(message), MessageType<3>(message));
-	}
-	// End
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<4> message)
+		// Start
+		template <typename T> std::tuple<MessageType<1>, MessageType<3>> process_message(const T& messenger, const MessageType<0> message)
+		{
+			message.check_message_order(0);
+			// MessageType<2> is returned on MessengerModule<3> module's MessageType<1> message processor.
+			return std::make_tuple(MessageType<1>(message), MessageType<3>(message));
+		}
+		// End
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<4> message)
+		{
+			message.check_message_order(10);
+			return std::make_tuple();
+		}
+
+		int get_module_test = 0;
+	};
+
+	template <> struct MessengerModule<1>
 	{
-		message.check_message_order(10);
-		return std::make_tuple();
-	}
-	
-	int get_module_test = 0;
-};
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<1> message)
+		{
+			message.check_message_order(1);
+			return std::make_tuple();
+		}
 
-template <> struct MessengerModule<1>
-{
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<1> message)
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<2> message)
+		{
+			message.check_message_order(4);
+			return std::make_tuple();
+		}
+
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<3> message)
+		{
+			message.check_message_order(7);
+			return std::make_tuple();
+		}
+
+		int get_module_test = 1;
+	};
+
+	template <> struct MessengerModule<2>
 	{
-		message.check_message_order(1);
-		return std::make_tuple();
-	}
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<1> message)
+		{
+			message.check_message_order(2);
+			return std::make_tuple();
+		}
 
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<2> message)
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<2> message)
+		{
+			message.check_message_order(5);
+			return std::make_tuple();
+		}
+
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<3> message)
+		{
+			message.check_message_order(8);
+			return std::make_tuple();
+		}
+
+		int get_module_test = 2;
+	};
+
+	template <> struct MessengerModule<3>
 	{
-		message.check_message_order(4);
-		return std::make_tuple();
-	}
+		template <typename T> std::tuple<MessageType<2>> process_message(const T& messenger, const MessageType<1> message)
+		{
+			message.check_message_order(3);
+			// Test propegation.
+			return std::make_tuple(MessageType<2>(message));
+		}
 
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<3> message)
-	{
-		message.check_message_order(7);
-		return std::make_tuple();
-	}
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<2> message)
+		{
+			message.check_message_order(6);
+			return std::make_tuple();
+		}
 
-	int get_module_test = 1;
-};
+		template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<3> message)
+		{
+			message.check_message_order(9);
+			messenger.pass_message(MessageType<4>(message));
+			return std::make_tuple();
+		}
 
-template <> struct MessengerModule<2>
-{
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<1> message)
-	{
-		message.check_message_order(2);
-		return std::make_tuple();
-	}
+		int get_module_test = 3;
+	};
 
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<2> message)
-	{
-		message.check_message_order(5);
-		return std::make_tuple();
-	}
+	using MessengerType = Messenger::Messenger<MessengerModule<0>, MessengerModule<1>, MessengerModule<2>, MessengerModule<3>>;
+}
 
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<3> message)
-	{
-		message.check_message_order(8);
-		return std::make_tuple();
-	}
-
-	int get_module_test = 2;
-};
-
-template <> struct MessengerModule<3>
-{
-	template <typename T> std::tuple<MessageType<2>> process_message(const T& messenger, const MessageType<1> message)
-	{
-		message.check_message_order(3);
-		// Test propegation.
-		return std::make_tuple(MessageType<2>(message));
-	}
-
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<2> message)
-	{
-		message.check_message_order(6);
-		return std::make_tuple();
-	}
-
-	template <typename T> std::tuple<> process_message(const T& messenger, const MessageType<3> message)
-	{
-		message.check_message_order(9);
-		messenger.pass_message(MessageType<4>(message));
-		return std::make_tuple();
-	}
-
-	int get_module_test = 3;
-};
-
-using MessengerType = Messenger::Messenger<MessengerModule<0>, MessengerModule<1>, MessengerModule<2>, MessengerModule<3>>;
+using namespace MessengerTest;
 
 TEST(MessengerTest, ModuleCountTest)
 {

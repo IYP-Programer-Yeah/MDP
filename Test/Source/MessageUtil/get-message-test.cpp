@@ -2,72 +2,77 @@
 #include <MDP/MessageUtil/get-message.inl>
 #include <gtest/gtest.h>
 
-struct A {};
-struct B {};
-struct C {};
-struct Sync {};
-
-using GetA = MessageUtil::Get<int, A>;
-using GetB = MessageUtil::Get<int, B>;
-using GetC = MessageUtil::Get<int, C>;
-
-struct ModuleA
+namespace GetMessageTest
 {
-	int a = 10;
-	int b;
-	int c;
+	struct A {};
+	struct B {};
+	struct C {};
+	struct Sync {};
 
-	std::tuple<GetB, GetC> process_message(const Sync&)
+	using GetA = MessageUtil::Get<int, A>;
+	using GetB = MessageUtil::Get<int, B>;
+	using GetC = MessageUtil::Get<int, C>;
+
+	struct ModuleA
 	{
-		return std::make_tuple(GetB(b), GetC(c));
-	}
+		int a = 10;
+		int b;
+		int c;
 
-	std::tuple<> process_message(const GetA &get_a)
+		std::tuple<GetB, GetC> process_message(const Sync&)
+		{
+			return std::make_tuple(GetB(b), GetC(c));
+		}
+
+		std::tuple<> process_message(const GetA &get_a)
+		{
+			get_a.ref = a;
+			return std::make_tuple();
+		}
+	};
+
+	struct ModuleB
 	{
-		get_a.ref = a;
-		return std::make_tuple();
-	}
-};
+		int a;
+		int b = 20;
+		int c;
 
-struct ModuleB
-{
-	int a;
-	int b = 20;
-	int c;
+		std::tuple<GetA, GetC> process_message(const Sync&)
+		{
+			return std::make_tuple(GetA(a), GetC(c));
+		}
 
-	std::tuple<GetA, GetC> process_message(const Sync&)
+		std::tuple<> process_message(const GetB &get_b)
+		{
+			get_b.ref = b;
+			return std::make_tuple();
+		}
+	};
+
+	struct ModuleC
 	{
-		return std::make_tuple(GetA(a), GetC(c));
-	}
+		int a;
+		int b;
+		int c = 30;
 
-	std::tuple<> process_message(const GetB &get_b)
-	{
-		get_b.ref = b;
-		return std::make_tuple();
-	}
-};
+		template <typename T> std::tuple<> process_message(const T& messenger, const Sync&)
+		{
+			messenger.pass_message(GetA(a));
+			messenger.pass_message(GetB(b));
+			return std::make_tuple();
+		}
 
-struct ModuleC
-{
-	int a;
-	int b;
-	int c = 30;
+		std::tuple<> process_message(const GetC &get_c)
+		{
+			get_c.ref = c;
+			return std::make_tuple();
+		}
+	};
 
-	template <typename T> std::tuple<> process_message(const T& messenger, const Sync&)
-	{
-		messenger.pass_message(GetA(a));
-		messenger.pass_message(GetB(b));
-		return std::make_tuple();
-	}
+	using MessengerType = Messenger::Messenger<ModuleA, ModuleB, ModuleC>;
+}
 
-	std::tuple<> process_message(const GetC &get_c)
-	{
-		get_c.ref = c;
-		return std::make_tuple();
-	}
-};
-
-using MessengerType = Messenger::Messenger<ModuleA, ModuleB, ModuleC>;
+using namespace GetMessageTest;
 
 TEST(GetMessageTest, FunctionalityTest)
 {

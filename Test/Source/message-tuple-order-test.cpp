@@ -3,16 +3,21 @@
 
 #include "../Include/order-checker.inl"
 
-struct SenderModule
+namespace TupleMessageOrderTest
 {
-	std::tuple<OrderCheckerMessage<1>, OrderCheckerMessage<2>, OrderCheckerMessage<3>, OrderCheckerMessage<4>>process_message(const OrderCheckerMessage<0> &message)
+	struct SenderModule
 	{
-		return std::make_tuple(OrderCheckerMessage<1>(message),
-			OrderCheckerMessage<2>(message),
-			OrderCheckerMessage<3>(message),
-			OrderCheckerMessage<4>(message));
-	}
-};
+		std::tuple<OrderCheckerMessage<1>, OrderCheckerMessage<2>, OrderCheckerMessage<3>, OrderCheckerMessage<4>>process_message(const OrderCheckerMessage<0> &message)
+		{
+			return std::make_tuple(OrderCheckerMessage<1>(message),
+				OrderCheckerMessage<2>(message),
+				OrderCheckerMessage<3>(message),
+				OrderCheckerMessage<4>(message));
+		}
+	};
+}
+
+using namespace TupleMessageOrderTest;
 
 TEST(TupleMessageOrderTest, FiveConsecutiveMessages)
 {
