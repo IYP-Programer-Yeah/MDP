@@ -28,7 +28,7 @@ namespace Messenger
 
 		public:
 			// If the module has the proper message processor, this value will be true, otherwise this will be false.
-			static constexpr bool Value = std::is_same<std::true_type, decltype(test_processor_method<MOT>(nullptr))>::value;
+			enum : bool { Value = std::is_same<std::true_type, decltype(test_processor_method<MOT>(nullptr))>::value };
 		};
 
 		// Pass a single message to a single module if the module has proper message processor.
@@ -104,7 +104,7 @@ namespace Messenger
 
 		public:
 			// The count of modules in messenger.
-			static constexpr std::size_t ModuleCount = sizeof... (Modules);
+			enum : std::size_t { ModuleCount = sizeof... (Modules) };
 
 			template <typename Message>
 			CPP_14_CONSTEXPR void operator()(const Message& message) const
@@ -142,9 +142,6 @@ namespace Messenger
 				return std::get<N>(modules);
 			}
 		};
-
-		template<typename... Modules>
-		constexpr typename std::size_t MessengerImpl<Modules...>::ModuleCount;
 
 		template <typename... Modules>
 		struct Messenger : private MessengerImpl<Modules...>
