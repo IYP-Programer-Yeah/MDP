@@ -2,3 +2,5 @@
 [![Build Status](https://travis-ci.com/IYP-Programer-Yeah/MDP.svg?branch=master)](https://travis-ci.com/IYP-Programer-Yeah/MDP)
 [![CodeFactor](https://www.codefactor.io/repository/github/iyp-programer-yeah/mdp/badge)](https://www.codefactor.io/repository/github/iyp-programer-yeah/mdp)
 [![codecov](https://codecov.io/gh/IYP-Programer-Yeah/MDP/branch/master/graph/badge.svg)](https://codecov.io/gh/IYP-Programer-Yeah/MDP)
+
+There is a complete exolanation of the project in the [wiki](https://github.com/IYP-Programer-Yeah/MDP/wiki) feel free to contribute.
